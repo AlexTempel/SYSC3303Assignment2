@@ -18,10 +18,16 @@ public class Main {
         InetAddress serverIP = InetAddress.getLoopbackAddress();
 
         Client client = new Client(hostClientPort, clientPort, bufferSize, fileName, hostIP);
-
         Thread clientThread = new Thread(client);
         clientThread.start();
 
+        Host host = new Host(serverPort, hostClientPort, hostPort, bufferSize, serverIP);
+        Thread hostThread = new Thread(host);
+        hostThread.start();
+
+        Server server = new Server(serverPort, bufferSize);
+        Thread serverThread = new Thread(server);
+        serverThread.start();
 
     }
 }

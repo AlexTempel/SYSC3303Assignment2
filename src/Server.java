@@ -31,7 +31,7 @@ public class Server implements Runnable {
         } catch (Exception e) {
             System.out.println("Error receiving on Server");
         }
-        UDP.printPacketInfo(receivePacket);
+        UDP.printPacketInfo(receivePacket, 3);
         if (UDP.packetDecode(receivePacket) == -1) {
             System.out.println("Invalid Packet");
             System.exit(1);
@@ -39,7 +39,7 @@ public class Server implements Runnable {
 
         //Send Response to host
         sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket) + 2, bufferSize, "");
-        UDP.printPacketInfo(sendPacket);
+        UDP.printPacketInfo(sendPacket, 3);
         try {
             serverSocket.connect(receivePacket.getAddress(), receivePacket.getPort());
             serverSocket.send(sendPacket);

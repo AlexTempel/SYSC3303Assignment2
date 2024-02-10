@@ -48,13 +48,13 @@ public class Host implements Runnable {
                 System.out.println("Error receiving packet on Host");
             }
 
-            UDP.printPacketInfo(receivePacket); //Print info
+            UDP.printPacketInfo(receivePacket, 2); //Print info
             clientIP = receivePacket.getAddress(); //Record its IP
             clientPort = receivePacket.getPort(); //Record its port
 
             //Create and send packet to Server
             sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket), bufferSize, UDP.extractMessage(receivePacket));
-            UDP.printPacketInfo(sendPacket);
+            UDP.printPacketInfo(sendPacket, 2);
             try {
                 sendSocket.connect(serverIP, serverPort);
                 sendSocket.send(sendPacket);
@@ -71,11 +71,11 @@ public class Host implements Runnable {
             } catch (Exception e) {
                 System.out.println("Error receiving packet on Host");
             }
-            UDP.printPacketInfo(receivePacket);
+            UDP.printPacketInfo(receivePacket, 2);
 
             //Send response from server to client
             sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket), bufferSize, UDP.extractMessage(receivePacket));
-            UDP.printPacketInfo(sendPacket);
+            UDP.printPacketInfo(sendPacket, 2);
             try {
                 sendSocket.connect(clientIP, clientPort);
                 sendSocket.send(sendPacket);

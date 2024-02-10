@@ -19,8 +19,15 @@ public class UDP {
                 return "Invalid";
         }
     }
-    public static void printPacketInfo(DatagramPacket packet) {
-        System.out.println("\nPacket Info: ");
+    public static void printPacketInfo(DatagramPacket packet, int source) {
+        if (source == 1) {
+            System.out.println("\nPacket in Client");
+        } else if (source == 2) {
+            System.out.println("\nPacket in Host");
+        } else {
+            System.out.println("\nPacket in Server");
+        }
+        System.out.println("Packet Info: ");
         byte[] packetData = packet.getData();
 
         System.out.println("Packet type: " + typeLookup(packetDecode(packet)));

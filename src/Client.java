@@ -35,7 +35,7 @@ public class Client implements Runnable{
         for (int i = 0; i<1; i++) {
             //Send read request
             sendPacket = UDP.createPacket(1, bufferSize, fileName);
-            UDP.printPacketInfo(sendPacket);
+            UDP.printPacketInfo(sendPacket, 1);
             try {
                 clientSocket.send(sendPacket);
             } catch (Exception e) {
@@ -45,7 +45,7 @@ public class Client implements Runnable{
             /*
             //Send write request
             sendPacket = UDP.createPacket(2, bufferSize, fileName);
-            UDP.printPacketInfo(sendPacket);
+            UDP.printPacketInfo(sendPacket, 1);
             try {
                 clientSocket.send(sendPacket);
             } catch (Exception e) {
@@ -56,7 +56,7 @@ public class Client implements Runnable{
         /*
         //Send Invalid
         sendPacket = UDP.createPacket(0, bufferSize, fileName);
-        UDP.printPacketInfo(sendPacket);
+        UDP.printPacketInfo(sendPacket, 1);
         try {
             clientSocket.send(sendPacket);
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class Client implements Runnable{
             try {
                 clientSocket.receive(receivePacket);
                 System.out.println("Received Packet");
-                UDP.printPacketInfo(receivePacket);
+                UDP.printPacketInfo(receivePacket, 1);
             } catch (Exception e) {
                 System.out.println("\nIssue receiving packet in client");
                 e.printStackTrace();

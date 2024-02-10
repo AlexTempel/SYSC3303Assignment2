@@ -19,21 +19,20 @@ public class UDP {
                 return "Invalid";
         }
     }
-    public static void printPacketInfo(DatagramPacket packet, int source) {
+    public synchronized static void printPacketInfo(DatagramPacket packet, int source) {
+        System.out.println("\nPacket Info: ");
         if (source == 1) {
-            System.out.println("\nPacket in Client");
+            System.out.println("Packet in Client");
         } else if (source == 2) {
-            System.out.println("\nPacket in Host");
+            System.out.println("Packet in Host");
         } else {
-            System.out.println("\nPacket in Server");
+            System.out.println("Packet in Server");
         }
-        System.out.println("Packet Info: ");
-        byte[] packetData = packet.getData();
 
         System.out.println("Packet type: " + typeLookup(packetDecode(packet)));
         if (packetDecode(packet) == 1 || packetDecode(packet) == 2) {
             System.out.println("Message: " + extractMessage(packet));
-            System.out.println("Bytes: " + byteArrayToBinary(packetData));
+            System.out.println("Bytes: " + byteArrayToBinary(packet.getData()));
         }
 
     }

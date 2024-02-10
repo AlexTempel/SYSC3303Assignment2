@@ -24,29 +24,31 @@ public class Server implements Runnable {
     public void run() {
         System.out.println("Server Starting");
 
-        //Receive Packet from host
-        receivePacket = new DatagramPacket(new byte[bufferSize] , bufferSize);
-        try {
-            serverSocket.receive(receivePacket);
-        } catch (Exception e) {
-            System.out.println("Error receiving on Server");
-        }
-        UDP.printPacketInfo(receivePacket, 3);
-        if (UDP.packetDecode(receivePacket) == -1) {
-            System.out.println("Invalid Packet");
-            System.exit(1);
-        }
+        while (true) {
+            //Receive Packet from host
+            receivePacket = new DatagramPacket(new byte[bufferSize], bufferSize);
+            try {
+                serverSocket.receive(receivePacket);
+            } catch (Exception e) {
+                System.out.println("Error receiving on Server");
+            }
+            UDP.printPacketInfo(receivePacket, 3);
+            if (UDP.packetDecode(receivePacket) == -1) {
+                System.out.println("Invalid Packet");
+                System.exit(1);
+            }
 
-        //Send Response to host
-        sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket) + 2, bufferSize, "");
-        UDP.printPacketInfo(sendPacket, 3);
-        try {
-            serverSocket.connect(receivePacket.getAddress(), receivePacket.getPort());
-            serverSocket.send(sendPacket);
-            serverSocket.disconnect();
-        } catch (Exception e) {
-            System.out.println("Could not send response from server");
-            System.exit(1);
+            //Send Response to host
+            sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket) + 2, bufferSize, "");
+            UDP.printPacketInfo(sendPacket, 3);
+            try {
+                serverSocket.connect(receivePacket.getAddress(), receivePacket.getPort());
+                serverSocket.send(sendPacket);
+                serverSocket.disconnect();
+            } catch (Exception e) {
+                System.out.println("Could not send response from server");
+                System.exit(1);
+            }
         }
     }
 }

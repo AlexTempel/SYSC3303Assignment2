@@ -28,6 +28,5 @@ public class Main {
         Server server = new Server(serverPort, bufferSize);
         Thread serverThread = new Thread(server);
         serverThread.start();
-
     }
 }

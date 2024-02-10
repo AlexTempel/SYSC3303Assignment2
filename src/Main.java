@@ -8,6 +8,8 @@ public class Main {
         int hostPort = 5098;
         int serverPort = 5097;
 
+        int bufferSize = 1024;
+
         InetAddress clientIP = InetAddress.getLoopbackAddress();
         InetAddress hostIP = InetAddress.getLoopbackAddress();
         InetAddress serverIP = InetAddress.getLoopbackAddress();

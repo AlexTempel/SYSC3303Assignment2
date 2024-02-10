@@ -13,6 +13,7 @@ public class Server implements Runnable {
         this.serverPort = serverPort;
         this.bufferSize = bufferSize;
 
+        //Create socket to send/receive from host
         try {
             serverSocket = new DatagramSocket(serverPort);
         } catch (Exception e) {
@@ -33,16 +34,16 @@ public class Server implements Runnable {
                 System.out.println("Error receiving on Server");
             }
             UDP.printPacketInfo(receivePacket, 3);
-            if (UDP.packetDecode(receivePacket) == -1) {
+            if (UDP.packetDecode(receivePacket) == -1) { //If the packet is invalid exit out
                 System.out.println("Invalid Packet");
                 System.exit(0);
             }
 
             //Send Response to host
-            sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket) + 2, bufferSize, "");
+            sendPacket = UDP.createPacket(UDP.packetDecode(receivePacket) + 2, bufferSize, ""); //Create a response packet, the packet type will be + 2 of the client packet, file name doesn't matter
             UDP.printPacketInfo(sendPacket, 3);
             try {
-                serverSocket.connect(receivePacket.getAddress(), receivePacket.getPort());
+                serverSocket.connect(receivePacket.getAddress(), receivePacket.getPort()); //Send packet back to source
                 serverSocket.send(sendPacket);
                 serverSocket.disconnect();
             } catch (Exception e) {

@@ -2,17 +2,15 @@ import java.net.InetAddress;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
+        //These values can be changed to whatever you want
+        //As long as the ports aren't the same
+        //And the buffer size if big enough to fit the message
         String fileName = "test.txt";
-
         int clientPort = 5099;
         int hostPort = 5098;
         int hostClientPort = 5097;
         int serverPort = 5096;
-
         int bufferSize = 1024;
-
         InetAddress clientIP = InetAddress.getLoopbackAddress();
         InetAddress hostIP = InetAddress.getLoopbackAddress();
         InetAddress serverIP = InetAddress.getLoopbackAddress();

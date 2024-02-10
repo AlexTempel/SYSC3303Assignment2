@@ -19,6 +19,7 @@ public class Client implements Runnable{
         this.fileName = fileName;
         this.hostIP = hostIP;
 
+        //Create a socket to send/receive from the host
         try {
             clientSocket = new DatagramSocket(clientPort);
             clientSocket.connect(hostIP, hostPort);
@@ -31,6 +32,7 @@ public class Client implements Runnable{
     public void run(){
         System.out.println("Client Starting");
 
+        //Send 5 read packets and 5 write packets
         for (int i = 0; i < 5; i++) {
             //Send read request
             sendPacket = UDP.createPacket(1, bufferSize, fileName);
@@ -50,7 +52,6 @@ public class Client implements Runnable{
                 System.out.println("Could not send Packet from client to host");
             }
         }
-
         //Send Invalid
         sendPacket = UDP.createPacket(0, bufferSize, fileName);
         UDP.printPacketInfo(sendPacket, 1);
@@ -59,11 +60,11 @@ public class Client implements Runnable{
         } catch (Exception e) {
             System.out.println("Could not send Packet from client to host");
         }
+        clientSocket.disconnect(); //Disconnect socket to let it receive
 
-        clientSocket.disconnect();
         while (true) {
             receivePacket = new DatagramPacket(new byte[bufferSize], bufferSize);
-            try {
+            try { //Receive and print packets in response to host/server
                 clientSocket.receive(receivePacket);
                 System.out.println("Received Packet");
                 UDP.printPacketInfo(receivePacket, 1);

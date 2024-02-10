@@ -23,12 +23,14 @@ public class Host implements Runnable {
         this.bufferSize = bufferSize;
         this.serverIP = serverIP;
 
+        //Create new socket to receive from client
         try {
             clientSocket = new DatagramSocket(hostClientPort);
         } catch (Exception e) {
             System.out.println("Cannot create Host Socket");
             System.exit(1);
         }
+        //Create new socket to send/receive from server and client
         try {
             sendSocket = new DatagramSocket(hostPort);
         } catch (Exception e) {
@@ -39,6 +41,7 @@ public class Host implements Runnable {
 
     public void run() {
         System.out.println("Starting Host");
+
         while (true) {
             //Receive Packet from client
             receivePacket = new DatagramPacket(new byte[bufferSize], bufferSize);
@@ -47,7 +50,6 @@ public class Host implements Runnable {
             } catch (Exception e) {
                 System.out.println("Error receiving packet on Host");
             }
-
             UDP.printPacketInfo(receivePacket, 2); //Print info
             clientIP = receivePacket.getAddress(); //Record its IP
             clientPort = receivePacket.getPort(); //Record its port

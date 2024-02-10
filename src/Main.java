@@ -14,6 +14,11 @@ public class Main {
         InetAddress hostIP = InetAddress.getLoopbackAddress();
         InetAddress serverIP = InetAddress.getLoopbackAddress();
 
+        Client client = new Client(hostPort, clientPort, bufferSize);
+
+        Thread clientThread = new Thread(client);
+        clientThread.start();
+
 
     }
 }

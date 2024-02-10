@@ -31,9 +31,7 @@ public class Client implements Runnable{
     public void run(){
         System.out.println("Client Starting");
 
-        int numPacketsUnaccounted =0;
-
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             //Send read request
             sendPacket = UDP.createPacket(1, bufferSize, fileName);
             UDP.printPacketInfo(sendPacket, 1);
@@ -42,8 +40,6 @@ public class Client implements Runnable{
             } catch (Exception e) {
                 System.out.println("Could not send Packet from client to host");
             }
-            numPacketsUnaccounted++;
-
 
             //Send write request
             sendPacket = UDP.createPacket(2, bufferSize, fileName);
@@ -53,10 +49,8 @@ public class Client implements Runnable{
             } catch (Exception e) {
                 System.out.println("Could not send Packet from client to host");
             }
-            numPacketsUnaccounted++;
-
         }
-        /*
+
         //Send Invalid
         sendPacket = UDP.createPacket(0, bufferSize, fileName);
         UDP.printPacketInfo(sendPacket, 1);
@@ -65,9 +59,6 @@ public class Client implements Runnable{
         } catch (Exception e) {
             System.out.println("Could not send Packet from client to host");
         }
-        numPacketsUnaccounted++;
-
-             */
 
         clientSocket.disconnect();
         while (true) {
@@ -76,11 +67,6 @@ public class Client implements Runnable{
                 clientSocket.receive(receivePacket);
                 System.out.println("Received Packet");
                 UDP.printPacketInfo(receivePacket, 1);
-                numPacketsUnaccounted--;
-                System.out.println("\nNumber of Client packets not received back: " + numPacketsUnaccounted);
-                if (numPacketsUnaccounted == 0) {
-                    System.exit(0);
-                }
             } catch (Exception e) {
                 System.out.println("\nIssue receiving packet in client");
                 e.printStackTrace();

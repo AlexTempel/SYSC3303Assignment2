@@ -35,7 +35,7 @@ public class Server implements Runnable {
             UDP.printPacketInfo(receivePacket, 3);
             if (UDP.packetDecode(receivePacket) == -1) {
                 System.out.println("Invalid Packet");
-                System.exit(1);
+                System.exit(0);
             }
 
             //Send Response to host

@@ -32,7 +32,7 @@ public class Client implements Runnable{
         System.out.println("Client Starting");
 
 
-        for (int i = 0; i<5; i++) {
+        for (int i = 0; i<1; i++) {
             //Send read request
             sendPacket = UDP.createPacket(1, bufferSize, fileName);
             UDP.printPacketInfo(sendPacket);
@@ -42,6 +42,7 @@ public class Client implements Runnable{
                 System.out.println("Could not send Packet from client to host");
             }
 
+            /*
             //Send write request
             sendPacket = UDP.createPacket(2, bufferSize, fileName);
             UDP.printPacketInfo(sendPacket);
@@ -50,7 +51,9 @@ public class Client implements Runnable{
             } catch (Exception e) {
                 System.out.println("Could not send Packet from client to host");
             }
+            */
         }
+        /*
         //Send Invalid
         sendPacket = UDP.createPacket(0, bufferSize, fileName);
         UDP.printPacketInfo(sendPacket);
@@ -60,6 +63,9 @@ public class Client implements Runnable{
             System.out.println("Could not send Packet from client to host");
         }
 
+             */
+
+        clientSocket.disconnect();
         while (true) {
             receivePacket = new DatagramPacket(new byte[bufferSize], bufferSize);
             try {

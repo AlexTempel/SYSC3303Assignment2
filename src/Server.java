@@ -43,6 +43,7 @@ public class Server implements Runnable {
         try {
             serverSocket.connect(receivePacket.getAddress(), receivePacket.getPort());
             serverSocket.send(sendPacket);
+            serverSocket.disconnect();
         } catch (Exception e) {
             System.out.println("Could not send response from server");
             System.exit(1);

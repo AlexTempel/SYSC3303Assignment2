@@ -58,6 +58,7 @@ public class Host implements Runnable {
             try {
                 sendSocket.connect(serverIP, serverPort);
                 sendSocket.send(sendPacket);
+                sendSocket.disconnect();
             } catch (Exception e) {
                 System.out.println("Could not send Packet to Server");
                 System.exit(1);
@@ -78,6 +79,7 @@ public class Host implements Runnable {
             try {
                 sendSocket.connect(clientIP, clientPort);
                 sendSocket.send(sendPacket);
+                sendSocket.disconnect();
             } catch (Exception e) {
                 System.out.println("Could not send packet to host");
                 System.exit(1);

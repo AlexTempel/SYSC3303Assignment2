@@ -1,4 +1,5 @@
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class UDP {
         }
     }
     public static void printPacketInfo(DatagramPacket packet) {
-        System.out.println("Packet Info: ");
+        System.out.println("\nPacket Info: ");
         byte[] packetData = packet.getData();
 
         System.out.println("Packet type: " + typeLookup(packetDecode(packet)));
